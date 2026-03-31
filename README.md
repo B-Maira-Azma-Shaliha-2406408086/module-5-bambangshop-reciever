@@ -96,3 +96,14 @@ This is the place for you to write reflections:
 Rust prioritizes memory safety and strict prevention of data races. If a mutable static variable is accessed by multiple threads without proper synchronization, it can lead to unpredictable behavior (undefined behavior). Therefore, Rust requires the use of safe wrappers such as Mutex or RwLock, along with lazy initialization using `lazy_static`.
 
 #### Reflection Subscriber-2
+1. Have you explored things outside of the steps in the tutorial, for example: src/lib.rs? If not, explain why you did not do so. If yes, explain things that you have learned from those other parts of code. 
+In my opinion, the structure of the Rocket framework is easier to understand compared to Spring Boot. I have tried to read both `src/lib.rs` and `src/main.rs`. `lib.rs`, as the name suggests, acts like a library and serves as the central place for shared application logic. General methods/functions are placed here so they can be accessed by all features (such as error handling, configuration, global HTTP client, etc.). Meanwhile, `main.rs` is the entry point when the application is executed, and it acts as the bridge that connects the APIs and launches the server. Additionally, the concept that appears frequently in this tutorial is pub mod, which functions similarly to packages in Java, allowing code organization and module exposure across the project.
+
+2. Since you have completed the tutorial by now and have tried to test your notification system by spawning multiple instances of Receiver, explain how Observer pattern eases you to plug in more subscribers. How about spawning more than one instance of Main app, will it still be easy enough to add to the system? 
+
+The Observer pattern separates the logic between Publisher and Subscriber (decoupling), so we can add more Receiver instances simply by registering their URLs without modifying the code in the Main App. However, if there are multiple instances of the Main App, we will need a shared or synchronized storage for subscribers (such as a centralized database) to keep the subscription data consistent across all instances. Without that, each instance would maintain its own list, which can lead to inconsistency.
+
+
+3. Have you tried to make your own Tests, or enhance documentation on your Postman collection? If you have tried those features, tell us whether it is useful for your work (it can be your tutorial work or your Group Project). 
+
+Yes, the automated testing feature in Postman helps ensure that every code change does not break existing functionality. Good documentation is also very crucial in a Group Project so that other team members can understand how to interact with the APIs we build. These features are useful both for this tutorial and for future software engineering projects because they improve reliability and collaboration.
